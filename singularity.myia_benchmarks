@@ -1,10 +1,11 @@
-
 Bootstrap: docker
-From: continuumio/anaconda3
+From: continuumio/miniconda3
 
-################# Section: Defining the system #################################
-# Commands in the %post section are executed within the container.
-% post
+%environment
+    PATH=$PATH:/opt/conda/bin
+
+%post
+    PATH=$PATH:/opt/conda/bin
     git clone https://github.com/mila-iqia/myia.git
     cd myia
     conda install -c abergeron -c pytorch --file=requirements.conda
