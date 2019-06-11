@@ -1,31 +1,12 @@
-################# Header: Define the base system you want to use ################
-# Reference of the kind of base you want to use (e.g., docker, debootstrap, shub).
+
 Bootstrap: docker
-# Select the docker image you want to use (Here we choose anaconda3)
 From: continuumio/anaconda3
 
 ################# Section: Defining the system #################################
 # Commands in the %post section are executed within the container.
 % post
-        echo "Installing Tools with apt-get"
-        apt-get update
-        apt-get install -y cmake libcupti-dev libyaml-dev wget unzip
-        apt-get clean
-        echo "Installing myia"
-        git clone https://github.com/mila-iqia/myia.git
-        cd myia
-        conda install -c abergeron -c pytorch --file=requirements.conda
-        pip install -r requirements.txt
-        pip install -e . --no-deps
-        echo "Creating mount points"
-        cd ..
-        mkdir /dataset
-        mkdir /tmp_log
-        mkdir /final_log
-
-
-# Environment variables that should be sourced at runtime.
-%environment
-        # use bash as default shell
-        SHELL=/bin/bash
-        export SHELL
+    git clone https://github.com/mila-iqia/myia.git
+    cd myia
+    conda install -c abergeron -c pytorch --file=requirements.conda
+    pip install -r requirements.txt
+    pip install -e . --no-deps
