@@ -1,0 +1,16 @@
+
+Bootstrap: docker
+From: continuumio/miniconda
+
+%environment
+ PATH=$PATH:/opt/conda/bin
+ export PATH=$PATH:/usr/local/cuda-10.0/bin/
+
+%post
+ PATH=$PATH:/opt/conda/bin
+ git clone https://github.com/mila-iqia/myia.git
+ cd myia
+ conda install -c abergeron -c pytorch --file=requirements.conda
+ pip install -r requirements.txt
+ pip install -e . --no-deps
+ export PATH=$PATH:/usr/local/cuda-10.0/bin/
